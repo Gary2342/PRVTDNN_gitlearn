@@ -23,7 +23,7 @@ SOFTWARE.
 */
 import chisel3._
 import chisel3.util._ 
-import chisel3.util.experimental.loadMemoryFromFile
+import chisel3.util.experimental.loadMemoryFromFileInline
 import firrtl.annotations.MemoryLoadFileType
 
 /**
@@ -40,12 +40,17 @@ class SigmoidLUT (actWidth: Int = 16, sigmoidDepth: Int = 4096,
         val outData     = Output(Vec(connectNum, SInt(actWidth.W)))
         
     })
-        val fileName = file + "_" + sigmoidDepth + ".bin"
+        // val fileName = file + "_" + sigmoidDepth + ".bin"
+        // val fileName = file+ ".bin"
+        // 尝试使用绝对路径进行配置
+        // val fileName = file+ ".bin"
         require(intNum >= 2, "intNum must not smaller than 2")
         val sigmoidWidth = log2Ceil(sigmoidDepth)
         // If using Mem, it will not be synthesized, because there are too many MUX
         val memory = SyncReadMem(sigmoidDepth,  SInt(actWidth.W))
-        loadMemoryFromFile(memory, fileName, MemoryLoadFileType.Binary)
+        // loadMemoryFromFileInline(memory, fileName, MemoryLoadFileType.Binary)
+        loadMemoryFromFileInline(memory, "src/test/resources/tansigData_4_32768_f18_16.bin", MemoryLoadFileType.Binary)
+
         val memIndex = Wire(Vec(connectNum, UInt(sigmoidWidth.W)))
         io.inAddr.zip(memIndex)foreach{ case(a,b) =>
             when(a(actWidth-1, actWidth-intNum+1).xorR){
