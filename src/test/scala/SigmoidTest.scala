@@ -3,7 +3,7 @@ import chisel3._
 import chisel3.util._
 import org.scalatest.flatspec.AnyFlatSpec
 
-// FIXME: 因为文件交互的原因，这个test是跑不下去的
+// 由于sigmoidlut使用了绝对路径 所以这里需要修改一下tansig的源文件
 class SigmoidTest extends AnyFlatSpec with ChiselScalatestTester{
     behavior of "SigmoidTest"
     it should "pass" in {

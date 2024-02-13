@@ -32,7 +32,7 @@ import chisel3.util._
 class PRVTDNNTop extends Module{
     val layerConfig = List(20,10,10,8)
     val polyphase   = 8 // represent 4 input samples
-    val actFP       = 16 // the fixed point position of activation
+    val actFP       = 14 // the fixed point position of activation
     val wtFP        = 13 // the fixed point position of weights
     val biasFP      = 13 // the fixed point position of biases
     val initFP      = actFP + wtFP // fixed-point position of the first layer, other layers are related to intNum
@@ -40,7 +40,7 @@ class PRVTDNNTop extends Module{
     // if the activation function is sigmoid, the input range is usually -4 to 4, so give 2
     // the last bit fixed to 1, since the output of DPD is always S1.14
     val intNum      = List(3, 3, 1) 
-    val actWidth    = 18 // bit width of activation
+    val actWidth    = 16 // bit width of activation
     val weightWidth = 16 // bit width of weight
     val biasWidth   = 16 // bit width of bias
     val accWidth    = 40 // bit width of partial sum

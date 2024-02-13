@@ -49,8 +49,9 @@ class SigmoidLUT (actWidth: Int = 16, sigmoidDepth: Int = 4096,
         // If using Mem, it will not be synthesized, because there are too many MUX
         val memory = SyncReadMem(sigmoidDepth,  SInt(actWidth.W))
         // loadMemoryFromFileInline(memory, fileName, MemoryLoadFileType.Binary)
-        loadMemoryFromFileInline(memory, "src/test/resources/tansigData_4_32768_f18_16.bin", MemoryLoadFileType.Binary)
+        loadMemoryFromFileInline(memory, "src/test/resources/tansigData_4_32768.bin", MemoryLoadFileType.Binary)
 
+        // loadMemoryFromFileInline(memory, "src/test/resources/tansigData.bin", MemoryLoadFileType.Binary)
         val memIndex = Wire(Vec(connectNum, UInt(sigmoidWidth.W)))
         io.inAddr.zip(memIndex)foreach{ case(a,b) =>
             when(a(actWidth-1, actWidth-intNum+1).xorR){
