@@ -3,7 +3,7 @@ import circt.stage.{ChiselStage, FirtoolOption}
 
 object genVerilog extends App{
   (new ChiselStage).execute(
-    Array("--target", "verilog"),
+    Array("--target", "systemverilog"),
     Seq(ChiselGeneratorAnnotation(() => new PRVTDNNTop),
       FirtoolOption("--disable-all-randomization")))
 }

@@ -25,6 +25,8 @@ import chisel3._
 import chisel3.util._ 
 import chisel3.util.experimental.loadMemoryFromFileInline
 import firrtl.annotations.MemoryLoadFileType
+import chisel3.util.experimental.loadMemoryFromFile
+
 
 /**
  * implement the sigmoid function
@@ -49,7 +51,8 @@ class SigmoidLUT (actWidth: Int = 16, sigmoidDepth: Int = 4096,
         // If using Mem, it will not be synthesized, because there are too many MUX
         val memory = SyncReadMem(sigmoidDepth,  SInt(actWidth.W))
         // loadMemoryFromFileInline(memory, fileName, MemoryLoadFileType.Binary)
-        loadMemoryFromFileInline(memory, "src/test/resources/tansigData_4_32768.bin", MemoryLoadFileType.Binary)
+        loadMemoryFromFileInline(memory, "src/test/resources/tansigData_8_32768.bin", MemoryLoadFileType.Binary)
+        // loadMemoryFromFile(memory, "/tansigData_4_32768.bin", MemoryLoadFileType.Binary)
 
         // loadMemoryFromFileInline(memory, "src/test/resources/tansigData.bin", MemoryLoadFileType.Binary)
         val memIndex = Wire(Vec(connectNum, UInt(sigmoidWidth.W)))

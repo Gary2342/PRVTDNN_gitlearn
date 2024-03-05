@@ -12,7 +12,7 @@ class PRVTDNNTest2 extends AnyFlatSpec with ChiselScalatestTester {
         Seq(VerilatorBackendAnnotation, WriteVcdAnnotation)) { dut =>
           dut.clock.setTimeout(0)
           // dut.io.bramIF.enable.poke(true.B)
-          val bramSource = scala.io.Source.fromResource("bramData.dat")
+          val bramSource = scala.io.Source.fromResource("bramData_12.dat")
           val bramData  = try bramSource.getLines().toList.map(_.toInt) finally bramSource.close()
           val actSource = scala.io.Source.fromResource("actData_hyx.dat")
           val actData   = try actSource.getLines().toList.map(_.toInt) finally actSource.close()
